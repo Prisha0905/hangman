@@ -1,1 +1,36 @@
+import random
+
+def hangman():
+    word_list = ["elephant", "giraffe", "penguin", "kangaroo", "alligator"]
+    chosen_word = random.choice(word_list)
+    guessed_letters = []
+    tries = 6
+    word_display = ["_"] * len(chosen_word)
+
+    print("Welcome to Hangman!")
+    
+    while tries > 0 and "_" in word_display:
+        print("\nWord:", " ".join(word_display))
+        guess = input("Guess a letter: ").lower()
+
+        if guess in guessed_letters:
+            print("You already guessed that letter.")
+        elif guess in chosen_word:
+            print("Nice! That letter is in the word.")
+            for i, letter in enumerate(chosen_word):
+                if letter == guess:
+                    word_display[i] = guess
+        else:
+            print("Oops! That letter's not in the word.")
+            tries -= 1
+        
+        guessed_letters.append(guess)
+        print(f"Tries left: {tries}")
+
+    if "_" not in word_display:
+        print("\nCongratulations! You guessed the word:", chosen_word)
+    else:
+        print("\nGame Over. The word was:", chosen_word)
+
+hangman()
 
